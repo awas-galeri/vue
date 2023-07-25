@@ -27,7 +27,7 @@
         </ul>
       </div>
       <form class="d-flex">
-        <button class="btn btn-secondary" @click.prevent="changeTheme()">
+        <button class="btn btn-dark" @click.prevent="changeTheme()">
           Theme
         </button>
       </form>
@@ -42,10 +42,13 @@ export default {
   components: {
     NavbarLink,
   },
+  created() {
+    this.getThemeSetting();
+  },
   props: ["pages", "activePage", "navLinkClick"],
   data() {
     return {
-      theme: "light",
+      theme: "dark",
     };
   },
   methods: {
@@ -56,6 +59,17 @@ export default {
         theme = "dark";
       }
       this.theme = theme;
+      this.storeThemeSetting();
+    },
+    storeThemeSetting() {
+      localStorage.setItem("theme", this.theme);
+    },
+    getThemeSetting() {
+      let theme = localStorage.getItem("theme");
+
+      if (theme) {
+        this.theme = theme;
+      }
     },
   },
 };
