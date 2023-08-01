@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-if="page" class="container">
     <div class="row">
       <div class="col-lg-12">
         <h1 class="emphasize">{{ page.pageTitle }}</h1>
@@ -13,16 +13,13 @@
 
 <script>
 export default {
-  props: {
-    page: {
-      type: Object,
-      default(rawProps) {
-        return {
-          pageTitle: "",
-          content: "",
-        };
-      },
-    },
+  created() {
+    this.page = this.$pages.getSinglePage(this.$route.params.index);
+  },
+  data() {
+    return {
+      page: null,
+    };
   },
 };
 </script>
